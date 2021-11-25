@@ -11,7 +11,7 @@ const AllInventory = () => {
     }, [])
 
     let getInventory = async () => {
-        let response = await fetch('http://127.0.0.1:8000/api/get-products/')
+        let response = await fetch('/api/get-products/')
         let data = await response.json()
         console.log('DATA:', data)
         setInventory(data)
