@@ -2,29 +2,30 @@ import React, { useState, useEffect } from "react";
 import ListInventory from "./listinv";
 
 
+
 const AllInventory = () => {
 
-    let [inventory, setInventory] = useState([])
+    const [inventory, setInventory] = useState([])
 
     useEffect(() => {
+        const getInventory = async () => {
+            const response = await fetch('/api/get-products/')
+            const data = await response.json()
+            // console.log('DATA:', data)
+            setInventory(data)
+        }
+
         getInventory()
     }, [])
 
-    let getInventory = async () => {
-        let response = await fetch('/api/get-products/')
-        let data = await response.json()
-        console.log('DATA:', data)
-        setInventory(data)
-    }
+    
 
     return (
-        < div className="all-inventory">
+        < div className="all-products">
+            <h4>Total Products In Store: {inventory.length}</h4>
             <div className="getAll">
                 {inventory.map((inv, index) => (
                     <ListInventory key={index} inv={inv}/>
-                    // <h4 key = {index}>{inv.id}</h4>
-                    //  <h4 key = {index}>{inv.name}</h4>
-
                 ))}
             </div>
         </div>

@@ -4,19 +4,20 @@ import AllInventory from "../src/components/allinventory";
 import {
   BrowserRouter as Router,
   Routes,
-  Route,
+  Route
+
 } from "react-router-dom";
+import OneProduct from "./components/oneproduct";
+import Header from './components/Header';
 
 function App() {
   return (
     <Router>
       <div className="App">
-        <h1>Inventory Tracker in React</h1>
-
-        {/* <Inventory p="application"/> */}
-        {/* <AllInventory /> */}
+       <Header />
         <Routes>
-          <Route path="/" element={<AllInventory/>}/>
+          <Route path="/" element={<AllInventory />}></Route>
+          <Route path="product/:id" element= {<OneProduct />}></Route>
         </Routes>
       </div>
     </Router>
