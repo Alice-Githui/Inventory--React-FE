@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import ListInventory from "./listinv";
+import AddProduct from "./addproduct";
 
 
 
@@ -23,6 +24,7 @@ const AllInventory = () => {
     return (
         < div className="all-products">
             <h4>Total Products In Store: {inventory.length}</h4>
+            < AddProduct />
             <div className="getAll">
                 {inventory.map((inv, index) => (
                     <ListInventory key={index} inv={inv}/>
