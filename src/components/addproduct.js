@@ -6,7 +6,7 @@ function AddProduct() {
         <div>
             
             <Link to="/product/new">
-                <button>Add New Item</button>
+                <button class= "addbutton">Add New Item</button>
             </Link>
 
         </div>

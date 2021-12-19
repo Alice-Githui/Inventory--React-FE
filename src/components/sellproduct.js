@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { Link, useNavigate } from 'react-router-dom';
 
-const OneProduct = () => {
+const SellProduct = () => {
 
     const params = useParams()
 
@@ -25,8 +25,8 @@ const OneProduct = () => {
 
     }, [productId])
 
-    const updateProduct = async () => {
-        fetch(`https://propolis-store.herokuapp.com/api/update-product/${productId}/`, {
+    const sellProduct = async () => {
+        fetch(`https://propolis-store.herokuapp.com/api/sell-product/${productId}/`, {
             method: "PATCH",
             headers: {
                 'Content-Type': 'application/json'
@@ -35,68 +35,39 @@ const OneProduct = () => {
         })
     }
 
-    const sellProduct = async () =>{
-        fetch(`https://propolis-store.herokuapp.com/api/sell-product/${productId}/`,{
-            method: "PATCH", 
-            headers:{
-                'Content-Type' : 'application/json'
-            }, 
-            body: JSON.stringify(product)
-        })
-    }
 
-
-    const deleteProduct = async () => {
-        fetch(`https://propolis-store.herokuapp.com/api/delete-product/${productId}/`, {
-            method: "DELETE",
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(product)
-        })
-    }
-
-    let handleSubmit = () => {
-        updateProduct()
-    }
-
-    let deleteOnClick = () => {
-        deleteProduct()
-        navigate("/")
-    }
 
     let sellSubmit = () => {
         sellProduct()
+        navigate("/")
     }
 
 
     return (
         <div>
             <div>
-                <div className="products-table">
+                <div className="selling-table">
                     <table>
                         <thead>
-                        <tr>
-                            {/* <th>
+                            <tr>
+                                {/* <th>
                                 Value
                             </th> */}
-                            <th>
-                                Name
-                            </th>
-                            <th>
-                                Quantity
-                            </th>
-                            <th>
-                                Updated Amount
-                            </th>
-                            <th>
-                                Update
-                            </th>
-                            <th>
-                                Delete
-                            </th>
-                        </tr>
-                    </thead>
+                                <th>
+                                    Name
+                                </th>
+                                <th>
+                                    Quantity In Store
+                                </th>
+                                <th>
+                                    Quantity Sold
+                                </th>
+
+                                <th>
+                                    Sell
+                                </th>
+                            </tr>
+                        </thead>
                         <tbody>
                             <tr>
                                 <td>
@@ -114,7 +85,7 @@ const OneProduct = () => {
                                 </td>
                                 <td>
                                     <div>
-                                        <label htmlFor="quantity">Quantity: </label>
+                                        <label htmlFor="quantity">Amount Sold: </label>
                                         <input type="number" placeholder="0" minimum="0" name="quantity" onChange={(e) => { setProduct({ ...product, 'quantity': e.target.value }) }}></input>
                                         {/* <input type="text" placeholder = "0" minimum = "0" name="quantity"></input> */}
                                     </div>
@@ -123,9 +94,10 @@ const OneProduct = () => {
                                     <div>
                                         {productId !== "new" ? (
                                             <div>
-                                                <Link to="/">
-                                                    <button onClick={handleSubmit}>Update</button>
-                                                </Link>
+                                                <div>
+                                                    <button onClick={sellSubmit}>Sell </button>
+
+                                                </div>
 
                                             </div>
 
@@ -144,27 +116,22 @@ const OneProduct = () => {
                                     <div>
                                         {productId !== "new" ? (
                                             <div>
-
-                                                <button onClick={deleteOnClick}>Delete</button>
+                                                {/* 
+                                                <button onClick={deleteOnClick}>Delete</button> */}
 
                                             </div>
 
                                         ) : (
 
                                             <div>
-                                                <button>Update</button>
+                                                <button onClick={sellProduct}>Sell Product</button>
+
                                             </div>
 
                                         )}
 
                                     </div>
                                 </td>
-                                {/* <td>
-                                    <div>
-                                        <button onClick={sellProduct}>Sell Product</button>
-
-                                    </div>
-                                </td> */}
                             </tr>
 
                         </tbody>
@@ -177,4 +144,4 @@ const OneProduct = () => {
     )
 }
 
-export default OneProduct
+export default SellProduct

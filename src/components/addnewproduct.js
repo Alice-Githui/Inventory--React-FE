@@ -1,20 +1,22 @@
 import React, { useState } from "react";
 import Axios from 'axios';
 import ReactDOM from "react-dom";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+
 
 function MyProductForm() {
-    const url = "http://127.0.0.1:8000/api/add-product/"
+    const url = "https://propolis-store.herokuapp.com/api/add-product/"
+    const navigate = useNavigate()
     const [inputs, setInputs] = useState({
-        name:"", 
-        quantity: "", 
-        buyingPrice: '', 
-        sellingPrice: "", 
+        name: "",
+        quantity: "",
+        buyingPrice: '',
+        sellingPrice: "",
         description: ""
     });
 
-    function handle(e){
-        const newInputs= { ...inputs}
+    function handle(e) {
+        const newInputs = { ...inputs }
         newInputs[e.target.id] = e.target.value
         setInputs(newInputs)
         console.log(newInputs)
@@ -27,45 +29,57 @@ function MyProductForm() {
     //     setInputs(values => ({ ...values, [name]: value }))
     // }
 
-    function submit(e){
+    function submit(e) {
         e.preventDefault();
         Axios.post(url, {
-            name: inputs.name, 
-            quantity: inputs.quantity, 
-            buying_price: inputs.buyingPrice, 
-            selling_price: inputs.sellingPrice, 
+            name: inputs.name,
+            quantity: inputs.quantity,
+            buying_price: inputs.buyingPrice,
+            selling_price: inputs.sellingPrice,
             description: inputs.description
         })
-        .then(res => {
-            console.log(res.inputs)
-        })
+            .then(res => {
+                console.log(res.inputs)
+                navigate("/")
+
+            })
+
     }
 
     return (
-        <div>
-            <Link to = "/">
-            <button>Back to HomePage</button>
-            </Link>
-        <form onSubmit={(e) => submit(e)}>
-            <label htmlFor="product-name">Product Name:
-                <input type="text" name="product-name" onChange={(e) => handle(e)} id="name" value={inputs.name}/>
-            </label>
-            <label htmlFor="quantity">Quantity:
-                <input type="number" name="quantity" onChange={(e) => handle(e)} id="quantity" value={inputs.quantity} />
-            </label>
-            <label htmlFor="buying-price">Buying Price:
-                <input type="number" name="buying-price" onChange={(e) => handle(e)} id="buyingPrice" value={inputs.buyingPrice}/>
-            </label>
-            <label htmlFor="selling-price">Selling Price:
-                <input type="number" name="selling-price" onChange={(e) => handle(e)} id="sellingPrice" value={inputs.sellingPrice}/>
-            </label>
-            <label htmlFor="description">Description:
-                <input type="text" name="description" onChange={(e) => handle(e)} id="description" value={inputs.description}/>
-            </label>
+        <div id="new-product">
             <br></br>
-            <br></br>
-            <button>Update Product Inventory</button>
-        </form>
+            <form onSubmit={(e) => submit(e)} className="update-form">
+                <label htmlFor="product-name" className="form-group">Product Name:
+                    <input type="text" name="product-name" onChange={(e) => handle(e)} id="name" value={inputs.name} className="form-control" />
+                </label>
+                <br></br>
+                <br></br>
+                <label htmlFor="quantity" className="form-group">Quantity:
+                    <input type="number" name="quantity" onChange={(e) => handle(e)} id="quantity" value={inputs.quantity} className="form-control" />
+                </label>
+                <br></br>
+                <br></br>
+                <label htmlFor="buying-price" className="form-group">Buying Price:
+                    <input type="number" name="buying-price" onChange={(e) => handle(e)} id="buyingPrice" value={inputs.buyingPrice} className="form-control" />
+                </label>
+                <br></br>
+                <br></br>
+                <label htmlFor="selling-price" className="form-group">Selling Price:
+                    <input type="number" name="selling-price" onChange={(e) => handle(e)} id="sellingPrice" value={inputs.sellingPrice} className="form-control" />
+                </label>
+                <br></br>
+                <br></br>
+                <label htmlFor="description" className="form-group">Description:
+                    <input type="text" name="description" onChange={(e) => handle(e)} id="description" value={inputs.description} className="form-control" />
+                </label>
+                <br></br>
+                <br></br>
+                {/* <Link to="/"> */}
+                <button>Update Product Inventory</button>
+                {/* </Link> */}
+
+            </form>
         </div>
     )
 }

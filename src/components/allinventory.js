@@ -8,9 +8,11 @@ const AllInventory = () => {
 
     const [inventory, setInventory] = useState([])
 
+    const colNames = ['id', 'Name', 'Quantity', 'Buying Price', 'Selling Price', 'View Product', 'Sell Product']
+
     useEffect(() => {
         const getInventory = async () => {
-            const response = await fetch('/api/get-products/')
+            const response = await fetch('https://propolis-store.herokuapp.com/api/get-products/')
             const data = await response.json()
             // console.log('DATA:', data)
             setInventory(data)
@@ -19,16 +21,42 @@ const AllInventory = () => {
         getInventory()
     }, [])
 
-    
-
     return (
         < div className="all-products">
-            <h4>Total Products In Store: {inventory.length}</h4>
-            < AddProduct />
             <div className="getAll">
-                {inventory.map((inv, index) => (
-                    <ListInventory key={index} inv={inv}/>
-                ))}
+                <table>
+                    <thead>
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Quantity
+                            </th>
+                            <th>
+                                Buying Price
+                            </th>
+                            <th>
+                                Selling Price
+                            </th>
+                            <th>
+                                View Product
+                            </th>
+                            <th>
+                                Sell Product
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {inventory.map((inv, index) => (
+                            <ListInventory key={index} inv={inv} />
+                        ))}
+
+                    </tbody>
+
+                </table>
+
+
             </div>
         </div>
 

@@ -1,9 +1,25 @@
-import React from "react"; 
+import React from "react";
+import { Link } from "react-router-dom";
 
-const Header = () =>{
+const Header = () => {
+
+    const image = require('../store.webp')
     return (
-        <div>
-            <h1>My Header Goes Here</h1>
+        <div className="header">
+            <div className="logos">
+                <img src="/store.webp" id="image"></img>
+                <button>PROPOLIS</button>
+            </div>
+            <div className="s-header">
+                <Link to="/">
+                    <button className="dashboard">Dashboard</button>
+                </Link>
+                <Link to="product/new">
+                    <button>Add New Store Product</button>
+                </Link>
+
+            </div>
+
         </div>
     )
 
